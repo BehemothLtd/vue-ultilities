@@ -1,12 +1,18 @@
 {
-  "name": "vue-components",
-  "version": "0.1.0",
-  "private": true,
+  "name": "behemoth-utilities",
+  "version": "1.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-lib": "vue-cli-service build --target lib --name behemoth-loading src/main.js"
   },
+  "main": "./dist/behemoth.common.js",
+  "files": [
+    "src/components/*",
+    "src/assets/*",
+    "*.json"
+  ],
   "dependencies": {
     "core-js": "^3.6.4",
     "vue": "^2.6.11"
@@ -37,5 +43,6 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "license": "UNLICENSED"
 }
