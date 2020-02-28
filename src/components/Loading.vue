@@ -1,21 +1,60 @@
 <template>
-  <section class="talign-center">
-    <div class="spinner spinner--steps icon-spinner" aria-hidden="true"></div>
-    <div class="spinner icon-spinner-2" aria-hidden="true"></div>
-    <div class="spinner icon-spinner-3" aria-hidden="true"></div>
-    <div class="spinner icon-spinner-4" aria-hidden="true"></div>
-    <div class="spinner icon-spinner-5" aria-hidden="true"></div>
-    <div class="spinner icon-spinner-6" aria-hidden="true"></div>
-    <div class="spinner spinner--steps2 icon-spinner-7" aria-hidden="true"></div>
-  </section>
+  <component v-bind:is="component" :image-path="imagePath" v-if="display"></component>
 </template>
 
 <script>
 export default {
+  props: {
+    template: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+    imagePath: {
+      type: String,
+      required: false,
+      default: ""
+    }
+  },
+  data: function() {
+    return {
+      component: null,
+      display: false 
+    };
+  },
+  computed: {
+    loader: function() {
+      if (!this.template) {
+        return null;
+      }
+      if (this.imagePath) {
+        return () => import(`./LoadingStyles/StyleImage`);
+      }
+
+      return () => import(`./LoadingStyles/Style${this.template}`);
+    }
+  },
+  created: function() {
+    this.loader()
+      .then(() => {
+        this.component = () => this.loader();
+      })
+      .catch(() => {
+        this.component = () => import("./LoadingStyles/Style1");
+      });
+  },
+  methods: {
+    show: function() {
+      this.display = true;
+    },
+    hide: function() {
+      this.display = false;
+    }
+  }
 };
 </script>
 
-<style scoped>
+<style>
 @font-face {
   font-family: "icomoon";
   src: url("https://s3.amazonaws.com/icomoon.io/4/Loading/icomoon.eot?-9haulc");
@@ -91,30 +130,5 @@ export default {
 }
 .spinner--steps2 {
   animation: anim-rotate 1s infinite steps(12);
-}
-
-body {
-  font-family: sans-serif;
-  color: #ccc;
-  line-height: 1.5;
-  font-size: 1em;
-  background: #181818;
-}
-.talign-center {
-  text-align: center;
-}
-a,
-a:visited {
-  text-decoration: none;
-  color: #444;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  transition: color 0.3s;
-}
-a:hover,
-a:active {
-  color: #ccc;
-}
-footer {
-  margin-top: 2em;
 }
 </style>
