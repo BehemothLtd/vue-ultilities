@@ -19,7 +19,7 @@ export default {
   data: function() {
     return {
       component: null,
-      display: false 
+      display: false
     };
   },
   computed: {

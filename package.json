@@ -1,11 +1,11 @@
 {
   "name": "behemoth-utilities",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-lib": "vue-cli-service build --target lib --name behemoth-loading src/main.js"
+    "build-lib": "vue-cli-service build --target lib --name behemoth-vue-utilities src/main.js"
   },
   "main": "./dist/behemoth.common.js",
   "files": [
